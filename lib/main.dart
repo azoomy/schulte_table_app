@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:schulte_table_app/constants/app_constants.dart';
+import 'package:schulte_table_app/firebase_options.dart';
 import 'package:schulte_table_app/routes/routes.dart';
 import 'package:schulte_table_app/screens/home_screen.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
 

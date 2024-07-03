@@ -25,9 +25,7 @@ class TableScreen extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(gradient: AppColors.scaffoldColor),
       child: SafeArea(
-        child: controller.viewCountdownPage
-            ? _buildCountdownPage(controller, size)
-            : _buildTablePage(context, controller, size, crossAxisCount),
+        child:_buildTablePage(context, controller, size, crossAxisCount),
       ),
     );
   }
@@ -71,6 +69,7 @@ class TableScreen extends StatelessWidget {
           SizedBox(height: size.height * 0.1),
           _buildTimerDisplay(controller, size),
           SizedBox(height: size.height * 0.02),
+          controller.viewCountdownPage ? _buildCountdownPage(controller, size) :
           _buildGridView(controller, crossAxisCount),
           Spacer(),
         ],

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "346055132407",
+    "project_id": "schulte-table-app",
+    "storage_bucket": "schulte-table-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346055132407:android:ee77cfd8039b52cfb5bff2",
+        "android_client_info": {
+          "package_name": "com.example.schulte_table_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzTTD0IDe89SKXqcfeiJsYls2yJiX27mY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

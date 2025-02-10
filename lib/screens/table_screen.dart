@@ -25,7 +25,7 @@ class TableScreen extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(gradient: AppColors.scaffoldColor),
       child: SafeArea(
-        child:_buildTablePage(context, controller, size, crossAxisCount),
+        child:_buildTablePage(controller, size, crossAxisCount),
       ),
     );
   }
@@ -43,7 +43,7 @@ class TableScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTablePage(BuildContext context, TableScreenController controller,
+  Widget _buildTablePage( TableScreenController controller,
       Size size, int crossAxisCount) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
@@ -54,10 +54,7 @@ class TableScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
-                // onPressed: controller.refreshTable,
-                onPressed: () {
-                  controller.displayScoreDialog(context);
-                },
+                onPressed: controller.refreshTable,
                 icon: Icon(
                   Icons.refresh,
                   color: AppColors.lightColor,

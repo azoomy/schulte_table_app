@@ -26,6 +26,8 @@ class AppTitles {
       color: AppColors.lightColor, fontWeight: FontWeight.bold, fontSize: 20);
   TextStyle text = const TextStyle(
       color: AppColors.lightColor, fontWeight: FontWeight.w500, fontSize: 14);
+  TextStyle darkText = const TextStyle(
+      color: AppColors.darkColor, fontWeight: FontWeight.w500, fontSize: 14);
   TextStyle footer = const TextStyle(
       color: AppColors.darkColor, fontWeight: FontWeight.w100, fontSize: 12);
   TextStyle tableNumber = const TextStyle(

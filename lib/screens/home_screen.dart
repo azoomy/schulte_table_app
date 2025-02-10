@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:schulte_table_app/constants/app_constants.dart';
+import 'package:schulte_table_app/controllers/login_controller.dart';
 import 'package:schulte_table_app/routes/routes.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,135 +10,157 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Get.put(LoginController());
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(gradient: AppColors.scaffoldColor),
-        child: SafeArea(
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.05,
-              vertical: size.width * 0.03,
+      body: GetBuilder<LoginController>(
+        builder: (controller) {
+          return Container(
+            decoration: BoxDecoration(gradient: AppColors.scaffoldColor),
+            child: SafeArea(
+              child: controller.loading
+                  //TODO: add loader
+                  ? const Center(child: CircularProgressIndicator())
+                  : _buildContent(size, controller, context),
             ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildContent(
+      Size size, LoginController controller, BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(
+        horizontal: size.width * 0.05,
+        vertical: size.width * 0.03,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _buildSignInButton(controller, context),
+            ],
+          ),
+          SizedBox(height: size.height * 0.05),
+          _buildWelcomeText(size, controller),
+          SizedBox(height: size.height * 0.1),
+          Center(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(''),
+                Icon(
+                  MdiIcons.brain,
+                  size: size.height * 0.175,
+                  color: AppColors.lightColor,
+                ),
+                Text(
+                  'Schulte Table',
+                  style: AppTitles().header,
+                ),
+                Text(
+                  'See Faster, Think Smarter, React Quicker.',
+                  style: AppTitles().text,
+                ),
+                SizedBox(height: size.height * 0.05),
+                Text(
+                  'Play',
+                  style: AppTitles().subtitle,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.lightColor,
+                      foregroundColor: AppColors.darkColor,
                     ),
-                    true
-                        ? TextButton(
-                            onPressed: () {},
-                            child: const Text('Sign in'),
-                          )
-                        : CircleAvatar(
-                            child: Icon(
-                              Icons.person_2_outlined,
-                              color: AppColors.darkColor,
-                            ),
-                          ),
-                    // Text(
-                    //   'Sign in',
-                    //   style: AppTitles().subtitle,
-                    // ),
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.05,
-                ),
-                Center(
-                  child: Text(
-                    'Welcome back, Azeem.',
-                    style: AppTitles().header,
-                    textAlign: TextAlign.center,
+                    onPressed: () {
+                      Get.toNamed(Routes.getTableScreen());
+                    },
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.bar_chart),
+                        SizedBox(width: 8),
+                        Text('3 x 3 Table'),
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.1,
-                ),
-                // const Spacer(),
-                Center(
-                  child: Column(
+                TextButton(
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: AppColors.lightColor,
+                  //   foregroundColor: AppColors.darkColor,
+                  // ),
+                  onPressed: () {
+                    Get.toNamed(Routes.getScoreboardScreen());
+                  },
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        MdiIcons.brain,
-                        size: size.height * 0.175,
-                        color: AppColors.lightColor,
-                      ),
-                      Text(
-                        'Schulte Table',
-                        style: AppTitles().header,
-                      ),
-                      Text(
-                        'See Faster, Think Smarter, React Quicker.',
-                        style: AppTitles().text,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
-                      Text(
-                        'Play',
-                        style: AppTitles().subtitle,
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: size.height * 0.01),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.lightColor,
-                                foregroundColor: AppColors.darkColor),
-                            onPressed: () {
-                              Get.toNamed(Routes.getTableScreen());
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.bar_chart),
-                                SizedBox(
-                                  width: size.width * 0.01,
-                                ),
-                                const Text('3 x 3 Table'),
-                              ],
-                            )),
-                      ),
-                      // Text(
-                      //   'Other game modes are coming soon!',
-                      //   style: AppTitles().text,
-                      // ),
-                      // Text('3x3'),
-                      // Text('Play'),
-                      // Text('Play'),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.05,
-                ),
-                const Spacer(),
-                Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        '©️ All Rights Reserved.',
-                        style: AppTitles().footer,
-                      ),
-                      Text(
-                        'v 0.0.1 (1)',
-                        style: AppTitles().footer,
-                      ),
+                      Icon(Icons.emoji_events),
+                      SizedBox(width: 8),
+                      Text('Scoreboard'),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-        ),
+          SizedBox(height: size.height * 0.05),
+          const Spacer(),
+          Center(
+            child: Column(
+              children: [
+                Text(
+                  '©️ All Rights Reserved.',
+                  style: AppTitles().footer,
+                ),
+                Text(
+                  'v 0.0.1 (1)',
+                  style: AppTitles().footer,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildSignInButton(LoginController controller, BuildContext context) {
+    return controller.user == null
+        ? TextButton(
+            onPressed: () async {
+              await controller.signInWithGoogle();
+            },
+            child: const Text('Sign in'),
+          )
+        : TextButton(
+            onPressed: () async {
+              controller.showLogoutDialog(context);
+            },
+            child: const Text('Logout'),
+          );
+  }
+
+  Widget _buildWelcomeText(Size size, LoginController controller) {
+    return Center(
+      child: controller.userName == ""
+          ? Text(
+              "Time to sharpen your brain.",
+              style: AppTitles().header,
+              textAlign: TextAlign.center,
+            )
+          : Text(
+              "Time to sharpen your brain, ${controller.userName}!",
+              style: AppTitles().header,
+              textAlign: TextAlign.center,
+            ),
     );
   }
 }

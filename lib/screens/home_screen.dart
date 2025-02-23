@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                   : Column(
                     children: [
                       Expanded(child: _buildContent(size, controller, context)),
-                      // buildAdBanner(homeController),
+                      buildAdBanner(homeController),
                     ],
                   ),
             ),

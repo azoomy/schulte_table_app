@@ -31,7 +31,7 @@ class TableScreen extends StatelessWidget {
         child:Column(
           children: [
             Expanded(child: _buildTablePage(controller, size, crossAxisCount)),
-            // buildAdBanner(homeController),
+            buildAdBanner(homeController),
           ],
         ),
       ),

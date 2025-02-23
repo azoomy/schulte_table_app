@@ -23,7 +23,7 @@ class Routes {
     ),
     GetPage(
       name: tableScreen,
-      page: () => const TableScreen(),
+      page: () => TableScreen(),
       transition: Platform.isIOS ? Transition.cupertino : Transition.topLevel,
       binding: BindingsBuilder(() {}),
     ),

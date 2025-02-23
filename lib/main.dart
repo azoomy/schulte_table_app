@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:schulte_table_app/constants/app_constants.dart';
 import 'package:schulte_table_app/firebase_options.dart';
 import 'package:schulte_table_app/routes/routes.dart';
@@ -10,7 +13,13 @@ import 'package:schulte_table_app/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (Firebase.apps.isEmpty) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    } else {
+      await Firebase.initializeApp();
+    }
+  }
   runApp(MyApp());
 }
 

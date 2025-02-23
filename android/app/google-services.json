@@ -2,17 +2,38 @@
   "project_info": {
     "project_number": "346055132407",
     "project_id": "schulte-table-app",
-    "storage_bucket": "schulte-table-app.appspot.com"
+    "storage_bucket": "schulte-table-app.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:346055132407:android:ee77cfd8039b52cfb5bff2",
+        "mobilesdk_app_id": "1:346055132407:android:8099706d8b83732ab5bff2",
         "android_client_info": {
-          "package_name": "com.example.schulte_table_app"
+          "package_name": "com.toastedcoldstudios.schultetable"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "346055132407-5pfc51gku6hrcqan4aos73aeusku720i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.toastedcoldstudios.schultetable",
+            "certificate_hash": "ff53a80e739c9603aaebeded5df42cc955cf0575"
+          }
+        },
+        {
+          "client_id": "346055132407-6cag6cni82l9cd9kja6c6839f109s880.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.toastedcoldstudios.schultetable",
+            "certificate_hash": "ea8253c73190c51a84759c9e42b2516ca07af8a9"
+          }
+        },
+        {
+          "client_id": "346055132407-ek72m6qr22crehhqplo7bfho3thinapb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCzTTD0IDe89SKXqcfeiJsYls2yJiX27mY"
@@ -20,7 +41,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346055132407-ek72m6qr22crehhqplo7bfho3thinapb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "346055132407-08l3fb0krrma57ams6qf09701pemjjip.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.schulteTableApp"
+              }
+            }
+          ]
         }
       }
     }

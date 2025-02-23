@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>346055132407-08l3fb0krrma57ams6qf09701pemjjip.apps.googleusercontent.com</string>
+	<string>346055132407-sdf8v2culg8rmb25l6ger61dc1l5gmjs.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.346055132407-08l3fb0krrma57ams6qf09701pemjjip</string>
+	<string>com.googleusercontent.apps.346055132407-sdf8v2culg8rmb25l6ger61dc1l5gmjs</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>346055132407-5pfc51gku6hrcqan4aos73aeusku720i.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyD93lPV4-V0q2fqV6xG_vaXT6WcSSEQBGg</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,11 +15,11 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.schulteTableApp</string>
+	<string>com.toastedcoldstudios.schultetable</string>
 	<key>PROJECT_ID</key>
 	<string>schulte-table-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>schulte-table-app.appspot.com</string>
+	<string>schulte-table-app.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:346055132407:ios:a4be494550f321d3b5bff2</string>
+	<string>1:346055132407:ios:cdf950ea2c251a14b5bff2</string>
 </dict>
 </plist>

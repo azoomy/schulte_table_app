@@ -6,6 +6,7 @@ class AppColors {
   static const Color lightColor = Color(0xFFeef5db);
   static const Color pinkColor = Color(0xFFf35f55);
   static const Color darkColor = Color(0xFF4f6367);
+  static const Color coffeeColor = Color(0xFFE07A5F);
 
   static LinearGradient scaffoldColor = const LinearGradient(
     begin: Alignment.topLeft,
@@ -24,6 +25,14 @@ class AppTitles {
       color: AppColors.lightColor, fontWeight: FontWeight.bold, fontSize: 24);
   TextStyle subtitle = const TextStyle(
       color: AppColors.lightColor, fontWeight: FontWeight.bold, fontSize: 20);
+  TextStyle subtitleDark = const TextStyle(
+      color: AppColors.darkColor, fontWeight: FontWeight.bold, fontSize: 20);
+  TextStyle stats = const TextStyle(
+      color: AppColors.darkColor, fontSize: 16); // Slightly bolder
+  TextStyle statTime = const TextStyle(
+      color: AppColors.darkColor, fontWeight: FontWeight.bold, fontSize: 20); // Bigger for more emphasis
+  TextStyle statsValue = const TextStyle(
+      color: AppColors.darkColor, fontWeight: FontWeight.bold, fontSize: 16);
   TextStyle text = const TextStyle(
       color: AppColors.lightColor, fontWeight: FontWeight.w500, fontSize: 14);
   TextStyle darkText = const TextStyle(
@@ -32,4 +41,6 @@ class AppTitles {
       color: AppColors.darkColor, fontWeight: FontWeight.w100, fontSize: 12);
   TextStyle tableNumber = const TextStyle(
       color: AppColors.darkColor, fontWeight: FontWeight.bold, fontSize: 50);
+  TextStyle coffeeText = TextStyle(
+    color: AppColors.coffeeColor, fontWeight: FontWeight.w600, fontSize: 14, decoration: TextDecoration.underline, decorationColor: AppColors.pinkColor, letterSpacing: 0.5);
 }

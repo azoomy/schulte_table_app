@@ -14,6 +14,11 @@ class TableScreenController extends GetxController {
   List<int> shuffledNumbers = [];
   int numberCheck = 0;
   int errorAtIndex = 0;
+  DateTime? lastTapTime;
+  Map<int, int> reactionTimesMap = {};
+
+  // TODO: ADD ACCURACY CHECK
+
 
   @override
   void onInit() {
@@ -36,10 +41,12 @@ class TableScreenController extends GetxController {
     numberCheck = 0;
     errorAtIndex = 0;
     timer?.cancel();
-    startTime = null; // Reset the start time
+    startTime = null;
     shuffleNumbers();
     update();
     startPageTimer();
+    lastTapTime = null;
+    reactionTimesMap.clear();
   }
 
   void shuffleNumbers() {
@@ -88,11 +95,18 @@ class TableScreenController extends GetxController {
 
   void numberCheckIncrement(context) {
     if (numberCheck < 9) {
+      if (lastTapTime != null) {
+        int reactionTime = DateTime.now().difference(lastTapTime!).inMilliseconds;
+        reactionTimesMap[numberCheck + 1] = reactionTime; // Store with number
+      }
+      lastTapTime = DateTime.now();
+
       numberCheck++;
       errorAtIndex = 0;
+
       if (numberCheck == 9) {
         timer!.cancel();
-        log(formattedTime);
+        log("Reaction times per number: $reactionTimesMap");
         displayScoreDialog(context);
       }
       update();
@@ -100,24 +114,47 @@ class TableScreenController extends GetxController {
   }
 
   void displayScoreDialog(context) {
+    if (reactionTimesMap.isEmpty) return;
+
+    int slowestNumber = reactionTimesMap.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+    int fastestNumber = reactionTimesMap.entries.reduce((a, b) => a.value < b.value ? a : b).key;
+
+    int averageReaction = reactionTimesMap.values.reduce((a, b) => a + b) ~/ reactionTimesMap.length;
+    int fastestReaction = reactionTimesMap.values.reduce((a, b) => a < b ? a : b);
+    int slowestReaction = reactionTimesMap.values.reduce((a, b) => a > b ? a : b);
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           backgroundColor: AppColors.lightColor,
+          titlePadding: EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+          contentPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+          actionsPadding: EdgeInsets.only(bottom: 16, right: 12),
           title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.emoji_events,
-                size: 30,
-                color: AppColors.darkColor,
-              ),
-              SizedBox(height: 10),
+              Icon(Icons.emoji_events, size: 30, color: AppColors.darkColor),
+              SizedBox(height: 15),
               Text(
-                'Your Time is $formattedTime',
+                'Your Time: $formattedTime',
                 textAlign: TextAlign.center,
+                style:AppTitles().statTime
               ),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Performance Breakdown', style: AppTitles().subtitleDark),
+              SizedBox(height: 10,),
+              _buildStatRow('⚡ Avg Reaction:', '${averageReaction}ms'),
+              Divider(color: AppColors.secondaryColor, thickness: 0.5),
+              _buildStatRow('🚀 Fastest:', '${fastestReaction}ms (on $fastestNumber)'),
+              Divider(color: AppColors.secondaryColor, thickness: 0.5),
+              _buildStatRow('🐢 Slowest:', '${slowestReaction}ms (on $slowestNumber)'),
             ],
           ),
           actions: [
@@ -126,26 +163,44 @@ class TableScreenController extends GetxController {
                 Get.back();
                 Get.back();
               },
-              child: Text(
-                'Home',
-                style: TextStyle(color: AppColors.darkColor),
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.darkColor,
               ),
+              child: Text('Home'),
             ),
             ElevatedButton(
+
               onPressed: () {
                 Get.back();
                 refreshTable();
               },
-              child: Text(
-                'Retry',
+              style: ElevatedButton.styleFrom(
+                shadowColor: Colors.black.withOpacity(0.3),
+                elevation: 4,
+                backgroundColor: AppColors.darkColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
+              child: Text('Retry'),
             ),
           ],
         );
       },
     );
   }
-
+  Widget _buildStatRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6), // More space
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: AppTitles().stats),
+          Text(value, style: AppTitles().statsValue),
+        ],
+      ),
+    );
+  }
   void setErrorForIndex(int index) {
     errorAtIndex = index;
     update();

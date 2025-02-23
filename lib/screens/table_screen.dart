@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:schulte_table_app/constants/app_constants.dart';
+import 'package:schulte_table_app/controllers/home_controller.dart';
 import 'package:schulte_table_app/controllers/table_screen_controller.dart';
 
 class TableScreen extends StatelessWidget {
-  const TableScreen({super.key});
+  TableScreen({super.key});
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +28,29 @@ class TableScreen extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(gradient: AppColors.scaffoldColor),
       child: SafeArea(
-        child:_buildTablePage(controller, size, crossAxisCount),
+        child:Column(
+          children: [
+            Expanded(child: _buildTablePage(controller, size, crossAxisCount)),
+            // buildAdBanner(homeController),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget buildAdBanner(HomeController homeController) {
+    return GetBuilder<HomeController>(
+      builder: (controller) {
+        if (!controller.isTableAdLoaded || controller.tableBannerAd == null) {
+          return const SizedBox(); // Hide if not loaded
+        }
+        return Container(
+          alignment: Alignment.center,
+          width: controller.tableBannerAd!.size.width.toDouble(),
+          height: controller.tableBannerAd!.size.height.toDouble(),
+          child: AdWidget(ad: controller.tableBannerAd!),
+        );
+      },
     );
   }
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:schulte_table_app/constants/app_constants.dart';
+import 'package:schulte_table_app/controllers/home_controller.dart';
 import 'package:schulte_table_app/controllers/login_controller.dart';
 import 'package:schulte_table_app/routes/routes.dart';
 
@@ -11,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(LoginController());
+    final homeController = Get.put(HomeController());
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -22,11 +25,32 @@ class HomeScreen extends StatelessWidget {
               child: controller.loading
                   //TODO: add loader
                   ? const Center(child: CircularProgressIndicator())
-                  : _buildContent(size, controller, context),
+                  : Column(
+                    children: [
+                      Expanded(child: _buildContent(size, controller, context)),
+                      // buildAdBanner(homeController),
+                    ],
+                  ),
             ),
           );
         },
       ),
+    );
+  }
+
+  Widget buildAdBanner(HomeController homeController) {
+    return GetBuilder<HomeController>(
+      builder: (controller) {
+        if (!controller.isHomeAdLoaded || controller.homeBannerAd == null) {
+          return const SizedBox(); // Hide if not loaded
+        }
+        return Container(
+          alignment: Alignment.center,
+          width: controller.homeBannerAd!.size.width.toDouble(),
+          height: controller.homeBannerAd!.size.height.toDouble(),
+          child: AdWidget(ad: controller.homeBannerAd!),
+        );
+      },
     );
   }
 
@@ -44,7 +68,8 @@ class HomeScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              _buildSignInButton(controller, context),
+              // _buildSignInButton(controller, context),
+              SizedBox(height: 20,),
             ],
           ),
           SizedBox(height: size.height * 0.05),
@@ -91,31 +116,50 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                TextButton(
-                  // style: ElevatedButton.styleFrom(
-                  //   backgroundColor: AppColors.lightColor,
-                  //   foregroundColor: AppColors.darkColor,
-                  // ),
-                  onPressed: () {
-                    Get.toNamed(Routes.getScoreboardScreen());
-                  },
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.emoji_events),
-                      SizedBox(width: 8),
-                      Text('Scoreboard'),
-                    ],
-                  ),
-                ),
+                // TextButton(
+                //   // style: ElevatedButton.styleFrom(
+                //   //   backgroundColor: AppColors.lightColor,
+                //   //   foregroundColor: AppColors.darkColor,
+                //   // ),
+                //   onPressed: () {
+                //     Get.toNamed(Routes.getScoreboardScreen());
+                //   },
+                //   child: const Row(
+                //     mainAxisSize: MainAxisSize.min,
+                //     children: [
+                //       Icon(Icons.emoji_events),
+                //       SizedBox(width: 8),
+                //       Text('Scoreboard'),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
-          SizedBox(height: size.height * 0.05),
           const Spacer(),
           Center(
             child: Column(
               children: [
+                GestureDetector(
+                  onTap: () {
+                    // Add your coffee link handling logic here
+                  },
+                  child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                MdiIcons.coffeeOutline,
+                color: AppColors.coffeeColor,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Buy Me a Coffee',
+                style: AppTitles().coffeeText,
+              ),
+            ],
+          ),
+                ),
                 Text(
                   '©️ All Rights Reserved.',
                   style: AppTitles().footer,
@@ -150,17 +194,19 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildWelcomeText(Size size, LoginController controller) {
     return Center(
-      child: controller.userName == ""
-          ? Text(
+      child:
+      // controller.userName == ""
+      //     ?
+      Text(
               "Time to sharpen your brain.",
               style: AppTitles().header,
               textAlign: TextAlign.center,
             )
-          : Text(
-              "Time to sharpen your brain, ${controller.userName}!",
-              style: AppTitles().header,
-              textAlign: TextAlign.center,
-            ),
+          // : Text(
+          //     "Time to sharpen your brain, ${controller.userName}!",
+          //     style: AppTitles().header,
+          //     textAlign: TextAlign.center,
+          //   ),
     );
   }
 }
